@@ -4,7 +4,9 @@ QUnit.test("test QUnit", function( assert ) {
 })
 QUnit.test("connection server", function( assert ) {
 	var url = "http://54.36.98.109:8080/test"
+
 	 var done = assert.async();
+
 	request.post(
 		url,
 		{
