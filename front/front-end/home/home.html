@@ -180,7 +180,7 @@ ul, ol {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <body>
 	<div class="wrapper">
-<!-- Begin side bar -->
+
 		<nav id="sidebar">
 	        <div class="sidebar-header">
 	            <h3>Mobility for all</h3>
@@ -204,7 +204,7 @@ ul, ol {
 	        </ul>
 
 	    </nav>
-<!-- end sidebar -->
+
 	    <div id="content" style="height: 100vh;width: 100vw">
 
 	        <nav>
@@ -264,7 +264,7 @@ ul, ol {
 	  		<div class="panel-body">Panel Footer</div>
 		</div>
 	</div>
-<!-- list panel -->
+
 	<div id="list" style="margin-top: 1%;margin-left: 3%;margin-bottom: 1%">
 
 		<div class="panel panel-default">
@@ -287,10 +287,10 @@ ul, ol {
 	  		</div>
 		</div>
 	</div>
-<!-- end list panel -->
 
 
-<!--  create panel -->
+
+
 
 	<div id="create" style="margin-top: 1%;margin-left: 3%;margin-bottom: 1%">
 		
@@ -320,21 +320,6 @@ ul, ol {
 					  	<label for="timeRDV"> Heure du RDV</label>
 						<input type="time" id="timeRDV" name="appt" min="00:00" max="23:59" required>
 					  </div>
-					  <div class="form-group">
-					  	 <div class="form-check">
-						  <input class="form-check-input" name="type" type="radio" value="" id="tisseo">
-						  <label class="form-check-label" for="tisseo">
-						    Tisseo
-						  </label>
-					   </div>
-					   <div class="form-check">
-						  <input class="form-check-input" name="type" type="radio" value="" id="google">
-						  <label class="form-check-label" for="google">
-						    Google
-						  </label>
-					   </div>
-					  </div>
-					 
 					  <button id="valid_Creation" class="btn btn-primary">Submit</button>
 		  		</div>
 			</div>
@@ -350,11 +335,11 @@ ul, ol {
 	</div>
 
 
-<!-- end panel create -->
 
 
 
-<!-- join panel -->
+
+
 	<div id="join"  style="margin-top: 1%;margin-left: 3%;margin-bottom: 1%">
 		<div class="row">
 			<div class="col-lg-7 col-xs-12">
@@ -393,7 +378,7 @@ ul, ol {
 		</div>
 		
 	</div>
-	<!-- Write your comments here -->
+
 </body>
 
 
@@ -433,8 +418,7 @@ ul, ol {
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		//url du serveur
-		var url = "http://54.36.98.109:8080/"
+		var url = "http://192.168.43.201:8080/"
 		var typeBody = "introduction"
 		var ArrayTipe = ["introduction","list","create","join"];
 		for(type in ArrayTipe)
@@ -444,13 +428,12 @@ ul, ol {
 				$("#"+ArrayTipe[type]).hide();
 			}
 		}
-
 		$("#receptacle").append($("#"+typeBody));
-		//cache la  side bar menu
+
 	    $('#sidebarCollapse').on('click', function () {
 	        $('#sidebar').toggleClass('active');
 	    });
-	    //charge la page de creation du rdv
+
 	     $('#createRDV').on('click', function () {
 	     	$("#"+typeBody).appendTo(document.body)
 	     	$("#"+typeBody).hide()
@@ -459,7 +442,7 @@ ul, ol {
          	$("#receptacle").append($("#"+typeBody));
 
 	    });
-	     // charge la page permettant de rejoindre un rdv 
+
 	      $('#joinRDV').on('click', function () {
 	      	$("#"+typeBody).appendTo(document.body)
 	      	$("#"+typeBody).hide()
@@ -468,25 +451,25 @@ ul, ol {
          	 $("#"+typeBody).show();
 	       alert("joinRDV")
 	    });
-	      //charge la page d'accueil
+
 	       $('#introductionRDV').on('click', function () {
 	      	$("#"+typeBody).appendTo(document.body)
 	      	$("#"+typeBody).hide()
-	        typeBody = "introduction";
+	         typeBody = "introduction";
          	$("#receptacle").append($("#"+typeBody));
-         	$("#"+typeBody).show();
-	       	alert("introductionRDV")
+         	 $("#"+typeBody).show();
+	       alert("introductionRDV")
 	    });
-	       //charge la page listant l'ensemble des rendez vous
+
 	       $('#listRDV').on('click', function () {
 	       	$("#"+typeBody).appendTo(document.body)
 	       	$("#"+typeBody).hide()
-	        typeBody = "list";
+	         typeBody = "list";
          	$("#receptacle").append($("#"+typeBody));
-         	$("#"+typeBody).show();
-	       	alert("listRDV")
+         	 $("#"+typeBody).show();
+	       	 alert("listRDV")
 
-	       	//lance une  requete asynchrone vers le server permmettant de recuperer la liste des rendez vous
+
 	       	 $.ajax({
 				  type: "POST",
 				  url: url+"listRDV",
@@ -519,101 +502,33 @@ ul, ol {
 						alert("error");
 						console.log(errorThrown)		 
 				    },
-				  	dataType: "json"
+				  dataType: "json"
 				});
 
 
 	    });
-//function permettant de valider la creation de rendez vous
+
 	       $("#valid_Creation").click(function()
 	       {
 
-		       	var obj 		= {}
-		       	var type 		= $("#tisseo").prop("checked") == true ? "tisseo" : "google";
-		       	obj.name 		= $("#nameUser").val();
-		       	obj.adress 		= $("#adressUser").val();
-		       	obj.adressRDV 	= $("#adressRDV").val();
-		       	obj.dateRDV 	= "" + $("#dateRDV").val() + " " + $("#timeRDV").val();
-		       	obj.type 		=  type;
-
+		       	var obj = {}
+		       	obj.name = $("#nameUser").val();
+		       	obj.adress = $("#adressUser").val();
+		       	obj.adressRDV = $("#adressRDV").val();
+		       	obj.dateRDV = "" + $("#dateRDV").val() + " " + $("#timeRDV").val();
 		       	$.ajax({
 				  type: "POST",
-				  url: 	url+"createRDV",
+				  url: url+"createRDV",
 				  data: obj,
 				  success: function(data, textStatus, jqXHR)
 				    {
-				        //data - response from serve
+				        //data - response from server
+				        console.log(data);
+
+				        alert("success")
 				        var div = $("#consigneTrajet")
 				        var str = "<h2>Vos Instructions</h2>"
-				        
-				       	if(data.routePlannerResult.query.maxSolutions > 0)
-				       	{
-
-					       	var journey = data.routePlannerResult.journeys[0].journey;
-
-					        for(var i=0; i< journey["chunks"].length;i++)
-					        {
-
-					        	str+="<br>"
-					        	var index = i+1;
-					        	str+="Etape "+index;
-				        		if(journey.chunks[i].service)
-				        		{
-				        			str+= "<i class='fas fa-bus'></i>  "
-				        			str +=" "+journey.chunks[i].service.text.text;
-				        		}
-				        		else if(journey.chunks[i].street)
-				        		{
-				        			str += "<i class='fas fa-walking'></i>  "
-				        			str +=" "+journey.chunks[i].street.text.text;
-				        		}
-				        		else if(journey.chunks[i].stop)
-				        		{
-				        			str+= "<i class='fas fa-hand-paper'></i>  "
-				        			str +=" "+journey.chunks[i].stop.text.text;
-				        		}
-					        }
-
-					        div.html(str);
-
-				       }
-				       
-				        
-				    },
-				    error: function (jqXHR, textStatus, errorThrown)
-				    {
-						alert("error");
-						console.log(errorThrown)		 
-				    },
-				  dataType: "json"
-				});
-
-	       })
-
-
-//rejoindre un rendez vous 
-//cette function effectue un appel a /joinRDV et permet au participant apres qu'il est renseigné son nom et prenom de rejoindre le rdv indiqué
-
-	       $("#valid_Join").click(function()
-	       {
-
-		       	var obj 	= {}
-		       	obj.name 	= $("#nameUserJoin").val();
-		       	obj.adress 	= $("#adressUserJoin").val();
-		       	obj.idRDV 	= $("#nameRDVJoin").val()
-		       	// appel asynchrone vers le serveur
-	       		$.ajax({
-				  type: 	"POST",
-				  url: 		url+"joinRDV",
-				  data: 	obj,
-				  //en cas de succes de la requete  asynchrone
-				  success: function(data, textStatus, jqXHR)
-				    {
-				        //data - response from server
-				        
-				        var div = $("#consigneTrajet2")
-				        var str = "<h2>Vos Instructions</h2>"
-
+				        console.log(data.routePlannerResult.query.maxSolutions)
 				       if(data.routePlannerResult.query.maxSolutions > 0)
 				       {
 
@@ -645,7 +560,91 @@ ul, ol {
 
 					        console.log(str);
 					        div.html(str);
-					        //initialisation de la carte
+
+				       }
+				       else
+				       {
+				       	console.log("icic")
+				       }
+				        
+
+				    },
+				    error: function (jqXHR, textStatus, errorThrown)
+				    {
+						alert("error");
+						console.log(errorThrown)		 
+				    },
+				  dataType: "json"
+				});
+				/*
+		       	$.post( url+"createRDV",obj, function() {
+				  alert( "success" );
+				})
+				  .done(function() {
+				    alert( "second success" );
+				  })
+				  .fail(function() {
+				    alert( "error" );
+				  })
+				  .always(function() {
+				    alert( "finished" );
+				  });
+*/
+	       })
+
+	       $("#valid_Join").click(function()
+	       {
+
+		       	var obj = {}
+		       	obj.name = $("#nameUserJoin").val();
+		       	obj.adress = $("#adressUserJoin").val();
+		       	obj.idRDV = $("#nameRDVJoin").val()
+
+		       		$.ajax({
+				  type: "POST",
+				  url: url+"joinRDV",
+				  data: obj,
+				  success: function(data, textStatus, jqXHR)
+				    {
+				        //data - response from server
+				        console.log(data);
+
+				        alert("success")
+				        var div = $("#consigneTrajet2")
+				        var str = "<h2>Vos Instructions</h2>"
+				        console.log(data.routePlannerResult.query.maxSolutions)
+				       if(data.routePlannerResult.query.maxSolutions > 0)
+				       {
+
+					       	var journey = data.routePlannerResult.journeys[0].journey;
+
+					       	console.log(journey);
+					        for(var i=0; i< journey["chunks"].length;i++)
+					        {
+
+					        	str+="<br>"
+					        	var index = i+1;
+					        	str+="Etape "+index;
+				        		if(journey.chunks[i].service)
+				        		{
+				        			str+= "<i class='fas fa-bus'></i>  "
+				        			str +=" "+journey.chunks[i].service.text.text;
+				        		}
+				        		else if(journey.chunks[i].street)
+				        		{
+				        			str += "<i class='fas fa-walking'></i>  "
+				        			str +=" "+journey.chunks[i].street.text.text;
+				        		}
+				        		else if(journey.chunks[i].stop)
+				        		{
+				        			str+= "<i class='fas fa-hand-paper'></i>  "
+				        			str +=" "+journey.chunks[i].stop.text.text;
+				        		}
+					        }
+
+					        console.log(str);
+					        div.html(str);
+
 					        var mymap = L.map('mapContainer').setView([51.505, -0.09], 13);
 						    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmFzdGllbmRpZGllciIsImEiOiJjazY4MzYzeTkwMHZlM21xdG01bXlhbGpyIn0.r_jl86haJmqOCrgE8ywKaw', {
 							    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -676,7 +675,6 @@ ul, ol {
 				        
 
 				    },
-				    //en cas d'erreur de la requete asynchrone
 				    error: function (jqXHR, textStatus, errorThrown)
 				    {
 						alert("error");
@@ -689,6 +687,9 @@ ul, ol {
 	       
 
 	});
+
+
+
 
 
 </script>
